@@ -1,0 +1,47 @@
+MAP
+  OUTPUTFORMAT
+    NAME "png"
+    DRIVER AGG/PNG
+    MIMETYPE "image/png"
+    IMAGEMODE RGB
+    EXTENSION "png"
+    FORMATOPTION "COMPRESSION=6"
+    FORMATOPTION "PALETTE_FORCE=on"
+    FORMATOPTION "PALETTE=/path/ossv-palette.txt"
+  END
+  NAME "OS"
+  STATUS ON
+  SIZE 256 256
+  EXTENT 5000 5000 660000 1225000
+  UNITS METERS
+  IMAGECOLOR 230 246 255
+  IMAGETYPE png
+  PROJECTION
+    "init=epsg:27700"
+  END
+
+  WEB
+    METADATA
+      "wms_title"           "WMS Server"
+      "wms_onlineresource"  "http://localhost/cgi-bin/mapserv?map=/path/os-streetview.map&"
+      "wms_srs"             "EPSG:4326 EPSG:3857"
+      "wms_enable_request"  "*"
+    END
+  END
+  LAYER
+    METADATA
+      wms_title 'sv'
+      "ows_enable_request" "*"
+    END
+    PROJECTION
+      "init=epsg:27700"
+    END
+    NAME       "sv"
+    DATA       "/path/ossv-combined.vrt"
+    EXTENT 5000 5000 660000 1225000
+    STATUS     ON
+    TYPE       RASTER
+    PROCESSING "RESAMPLE=AVERAGE"
+    PROCESSING "CLOSE_CONNECTION=DEFER"
+  END # layer
+END
